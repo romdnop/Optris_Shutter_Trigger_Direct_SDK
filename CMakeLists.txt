@@ -18,7 +18,8 @@ add_definitions(-DUNICODE -D_UNICODE)
 
 # Add source files
 set(SOURCE_FILES 
-    user/src/irimagerShowOOP.cpp 
+	user/src/irDirectBindingUSBShow.cpp
+#    user/src/irimagerShowOOP.cpp 
     user/src/IRImagerHandler.cpp
 	user/src/VideoDisplay.cpp
 )
