@@ -47,6 +47,11 @@ link_directories(${SDK_LIB_DIR})
 file(GLOB SDK_LIBS ${SDK_LIB_DIR}/*.lib)
 
 
+# Set output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+
 
 # Create the executable with the project name
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
@@ -58,6 +63,8 @@ target_link_libraries(${PROJECT_NAME} ${SDK_LIBS})
 # Ensure the DLL is copied next to the executable
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${SDK_LIB_DIR}/libirimager.dll"  # Source DLL
+        "../${SDK_LIB_DIR}/libirimager.dll"  # Source DLL
+		"../Formats.def"
+		"../generic.xml"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"  # Destination: Same folder as the executable
 )
