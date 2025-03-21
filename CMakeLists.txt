@@ -41,6 +41,7 @@ else()
 endif()
 
 
+
 # Link the SDK library files
 link_directories(${SDK_LIB_DIR})
 
@@ -65,7 +66,11 @@ target_link_libraries(${PROJECT_NAME} ${SDK_LIBS})
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "../${SDK_LIB_DIR}/libirimager.dll"  # Source DLL
-		"../Formats.def"
-		"../generic.xml"
+		"../config/Formats.def"
+		"../config/generic.xml"
+		"../config/run.bat"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"  # Destination: Same folder as the executable
 )
+
+# Set the command-line argument for Visual Studio Debugging
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "-c generic.xml")
