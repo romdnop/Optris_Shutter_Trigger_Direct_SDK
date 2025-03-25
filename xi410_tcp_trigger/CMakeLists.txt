@@ -18,8 +18,8 @@ add_definitions(-DUNICODE -D_UNICODE)
 
 # Add source files
 set(SOURCE_FILES 
-	user/src/irDirectBindingTCPShow.cpp
-	user/src/VideoDisplay.cpp
+	user/src/tcp_trigger.cpp
+#	user/src/VideoDisplay.cpp
 )
 
 # Include directories
@@ -64,6 +64,7 @@ target_link_libraries(${PROJECT_NAME} ${SDK_LIBS})
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "../${SDK_LIB_DIR}/libirimager.dll"  # Source DLL
+		"../${SDK_LIB_DIR}/libirextras.dll"
 		"../config/Formats.def"
 		"../config/generic.xml"
 		"../config/run.bat"
@@ -71,4 +72,5 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 )
 
 # Set the command-line argument for Visual Studio Debugging
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "-c generic.xml")
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "-c \"C:/Users/User/Desktop/xi410_direct_sdk_project/xi410_tcp_trigger/config/generic.xml\"")
+#set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "\"C:\Users\User\Desktop\xi410_direct_sdk_project\xi410_tcp_trigger\config\generic.xml\"")
