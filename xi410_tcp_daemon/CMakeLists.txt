@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name (used as the executable name)
-project(xi410_get_image)
+project(xi410_tcp_daemon)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -18,26 +18,23 @@ add_definitions(-DUNICODE -D_UNICODE)
 
 # Add source files
 set(SOURCE_FILES 
-	user/src/irDirectBindingUSBShow.cpp
-#    user/src/irimagerShowOOP.cpp 
-    user/src/IRImagerHandler.cpp
-	user/src/VideoDisplay.cpp
+	user/src/irDirectDaemon.cpp
 )
 
 # Include directories
 include_directories(
     user/inc   # Headers from user/inc
-    sdk        # Headers from sdk
-	sdk/pif_config
-	sdk/extras
+    ../sdk        # Headers from sdk
+	../sdk/pif_config
+	../sdk/extras
 )
 
 
 # Determine whether we are building for 32-bit or 64-bit
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(SDK_LIB_DIR "sdk/x64")
+    set(SDK_LIB_DIR "../sdk/x64")
 else()
-    set(SDK_LIB_DIR "sdk/Win32")
+    set(SDK_LIB_DIR "../sdk/Win32")
 endif()
 
 
