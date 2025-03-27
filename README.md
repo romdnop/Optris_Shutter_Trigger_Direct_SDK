@@ -27,7 +27,7 @@ cmake --build . --config Release
 1) Run xi410_tcp_daemon
 
 ```
-xi410_tcp_daemon.exe generic.xml
+.\xi410_tcp_daemon.exe .\generic.xml
 ```
 
 2) Execute xi410_tcp_trigger
