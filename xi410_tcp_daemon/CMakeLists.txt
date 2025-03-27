@@ -65,7 +65,6 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         "../${SDK_LIB_DIR}/libirimager.dll"  # Source DLL
 		"../config/Formats.def"
 		"../config/generic.xml"
-		"../config/run.bat"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"  # Destination: Same folder as the executable
 )
 

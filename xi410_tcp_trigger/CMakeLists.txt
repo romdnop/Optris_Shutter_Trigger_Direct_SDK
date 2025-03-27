@@ -19,7 +19,7 @@ add_definitions(-DUNICODE -D_UNICODE)
 # Add source files
 set(SOURCE_FILES 
 	user/src/tcp_trigger.cpp
-#	user/src/VideoDisplay.cpp
+	user/src/snapshot_export.cpp
 )
 
 # Include directories
@@ -67,10 +67,9 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		"../${SDK_LIB_DIR}/libirextras.dll"
 		"../config/Formats.def"
 		"../config/generic.xml"
-		"../config/run.bat"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>"  # Destination: Same folder as the executable
 )
 
 # Set the command-line argument for Visual Studio Debugging
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "-c \"C:/Users/User/Desktop/xi410_direct_sdk_project/xi410_tcp_trigger/config/generic.xml\"")
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "-c -e \"C:\\Users\\User\\Desktop\\xi410_direct_sdk_project\\tools\\test\" -n example.csv" ) 
 #set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_COMMAND_ARGUMENTS "\"C:\Users\User\Desktop\xi410_direct_sdk_project\xi410_tcp_trigger\config\generic.xml\"")
