@@ -2,10 +2,14 @@
 #include <fstream>
 #include <vector>
 #include <memory>
+#include <unordered_map>
+#include <chrono>
 
 #include "direct_binding.h"
 #include "snapshot_export.h"
 #include "windows.h"
+
+
 
 bool _run = true;
 
@@ -19,8 +23,19 @@ const int MAX_SNAPHOT_DELAY = 5000;
 std::string timestampCmdReceived;
 std::string timestampFileSaved;
 
-bool add_filename_postfix = false;
 
+bool add_filename_postfix = false;
+bool triggerShutter = false;
+/*
+// Define an enum for mode
+enum class ShutterMode {
+	Manual = 0,
+	Automatic = 1
+};
+
+const ShutterMode defaultShutterMode = ShutterMode::Automatic;
+ShutterMode shutterMode = ShutterMode::Automatic; //1 - automatic, 0 - manual
+*/
 
 int saveTemperatureCSV(const unsigned short* thermal, unsigned int w, unsigned int h, std::string filename)
 {
@@ -72,6 +87,7 @@ void DisplayHelp() {
 		<< "  -t <milliseconds> Add a delay (in milliseconds) before copying the file.\n"
 		<< "  -n <file name> Set output file name\n"
 		<< "  -p add postfix with <Timestamp CMD RECEIVED> and <Timestamp FRAME RECEIVD> to the filename\n"
+		<< "  -s Trigger shutter\n"
 		<< "  --help         Display this help message.\n\n"
 		<< "Example:\n"
 		<< "  OptrisShutterTrigger.exe -e \"C:\\Path With Spaces\\DestinationFolder\" -t 5000\n"
@@ -114,6 +130,8 @@ DWORD WINAPI camWorker(LPVOID lpParam)
 
 int main(int argc, char *argv[])
 {
+	auto start = std::chrono::high_resolution_clock::now(); // Start time
+
 	char default_ip[] = "localhost";
 	char* ip_appr = default_ip;
 	DWORD snapshotDelay = 0;
@@ -137,6 +155,12 @@ int main(int argc, char *argv[])
 		else if (std::string(argv[i]) == "-n" && i + 1 < argc) {
 			outputFileName = argv[i + 1];
 			++i; // Skip the next argument as it's already processed
+		}
+		else if (std::string(argv[i]) == "-s" && i < argc) {
+			//outputFileName = argv[i + 1];
+			//shutterMode = ShutterMode::Manual;
+			triggerShutter = true;
+			//++i; // Skip the next argument as it's already processed
 		}
 		else if (std::string(argv[i]) == "-p" && i < argc) {
 			add_filename_postfix = true;
@@ -164,6 +188,16 @@ int main(int argc, char *argv[])
 
 	std::cout << "client connected" << std::endl;
 
+	//get camera flag, if it is wrong, exit
+	if (triggerShutter)
+	{
+		if(evo_irimager_trigger_shutter_flag() != 0)
+		{
+			std::cout << "Failed to trigger the shutter!" << std::endl;
+		}
+	}
+
+	
 
 	timestampCmdReceived = GetUnixTimestamp();
 
@@ -186,6 +220,12 @@ int main(int argc, char *argv[])
 	}
 
   evo_irimager_terminate();
+
+  auto end = std::chrono::high_resolution_clock::now(); // End time
+
+  std::chrono::duration<double, std::milli> elapsed = end - start; // Duration in milliseconds
+
+  std::cout << "Execution time: " << elapsed.count() << " ms" << std::endl;
 
   return 0;
 }

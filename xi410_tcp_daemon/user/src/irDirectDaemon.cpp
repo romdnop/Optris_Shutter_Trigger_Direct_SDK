@@ -59,13 +59,14 @@ int main(int argc, char* argv[])
   {
     evo::IRDeviceParamsReader::readXMLC(argv[1], params);
   }
+  
   IRDeviceParams_Print(params);
   //--------------------------------------------------------------------------------
  
  
   //-- IRDaemon instantiation ------------------------------------------------------
   _daemon = new evo::IRDaemon();
- 
+
   _daemon->run(&params, DIRECT_DAEMON_PORT);
  
   delete _daemon;

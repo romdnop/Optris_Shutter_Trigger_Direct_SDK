@@ -2,7 +2,7 @@
 <imager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <serial>0</serial>                     <!-- Provide serial number, if you attach more than one camera -->
   <videoformatindex>0</videoformatindex> <!-- index of the used video format resolution and framerate (USB enpoint): http://documentation.evocortex.com/libirimager2/html/index.html#sec_videoformat -->
-  <formatspath>.\</formatspath>
+  <formatspath>C:\Users\User\Desktop\xi410_direct_sdk_project\xi410_tcp_daemon\config\</formatspath>
   <!-- <calipath></calipath> -->
   <!-- Uncomment the following lines to specify user-defined parameters for the desired optic
        and temperature range. Be aware to specify meaningful parameters.
@@ -25,7 +25,7 @@
   <framerate>32.0</framerate>             <!-- only scaled down frame rate, maximum framerate depends on the chosen <videoformatindex> -->
   <bispectral>0</bispectral>              <!-- 0=only thermal sensor, 1=bispectral technology (only PI200/PI230) -->
   <autoflag>
-    <enable>1</enable> <!-- 0=Off, 1=On; Enables automatic flag cycle depending on internal camera temperature or time-->
+    <enable>0</enable> <!-- 0=Off, 1=On; Enables automatic flag cycle depending on internal camera temperature or time-->
     <mininterval>15.0</mininterval> <!-- Minimum duration in seconds between flag cycle-->
     <maxinterval>0.0</maxinterval> <!-- Maximum duration in seconds between flag cycle. Set to 0 to disable.-->
   </autoflag>
