@@ -1,0 +1,1 @@
+xi410_get_image.exe generic.xml

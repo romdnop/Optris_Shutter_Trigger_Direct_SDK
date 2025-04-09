@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(Xi410_Direct_Solution)
 
 # Define project paths
-set(PROJECTS xi410_tcp_daemon xi410_tcp_trigger)
+set(PROJECTS xi410_tcp_daemon xi410_tcp_trigger xi410_usb_trigger)
 set(BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
 
 # Ensure the main build directory exists
